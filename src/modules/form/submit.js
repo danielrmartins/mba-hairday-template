@@ -12,5 +12,28 @@ selectedDate.min = inputToday;
 form.onsubmit = async (event) => {
   event.preventDefault();
 
-  console.log('Form submitted!');
+  try {
+    const name = clientName.value.trim();
+
+    if(!name) {
+      return alert("Please enter your name.");
+    }
+
+    const hourSelected = document.querySelector(".hour-selected");
+
+    if(!hourSelected) {
+      return alert("Please select an hour.");
+    }
+
+
+    const [hour] = hourSelected.textContent.split(":");
+
+    const when = dayjs(selectedDate.value).add(hour, "hour");
+
+    const id = new Date().getTime();
+  } catch (error) {
+    alert("An error occurred. Please try again later.");
+    console.error(error);
+    
+  }
 };
