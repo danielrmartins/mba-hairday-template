@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 
+import { scheduleNew } from "../../services/schedule-new.js";
+
 const form = document.querySelector("form");
 const selectedDate = document.getElementById("date");
 
@@ -13,7 +15,7 @@ form.onsubmit = async (event) => {
   event.preventDefault();
 
   try {
-    const name = clientName.value.trim();
+    const name = client.value.trim();
 
     if(!name) {
       return alert("Please enter your name.");
@@ -31,6 +33,8 @@ form.onsubmit = async (event) => {
     const when = dayjs(selectedDate.value).add(hour, "hour");
 
     const id = new Date().getTime();
+
+    await scheduleNew({ id, name, when });
   } catch (error) {
     alert("An error occurred. Please try again later.");
     console.error(error);
